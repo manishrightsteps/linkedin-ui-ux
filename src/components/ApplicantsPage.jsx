@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import ApplicantDetail from './ApplicantDetail'
 import './ApplicantsPage.css'
 
-const API_URL = import.meta.env.VITE_API_URL || '${API_URL}'
+const API_URL = 'https://linkdin-server.onrender.com'
 
 function ApplicantsPage() {
   const [applicants, setApplicants] = useState([])
@@ -17,7 +17,7 @@ function ApplicantsPage() {
 
   const fetchApplicants = async () => {
     try {
-      const response = await fetch('${API_URL}/api/applicants')
+      const response = await fetch(`${API_URL}/api/applicants`)
       if (response.ok) {
         const data = await response.json()
         setApplicants(data)

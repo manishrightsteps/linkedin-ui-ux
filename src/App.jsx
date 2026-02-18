@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './App.css'
 
-const API_URL = import.meta.env.VITE_API_URL || '${API_URL}'
+const API_URL = 'https://linkdin-server.onrender.com'
 
 function App() {
   const [applicants, setApplicants] = useState([])
@@ -21,7 +21,7 @@ function App() {
 
   const fetchApplicants = async () => {
     try {
-      const response = await fetch('${API_URL}/api/applicants')
+      const response = await fetch(`${API_URL}/api/applicants`)
       if (response.ok) {
         const data = await response.json()
         setApplicants(data)
@@ -72,7 +72,7 @@ function App() {
         formDataUpload.append('file', formData.resume)
         formDataUpload.append('fileName', fileName)
         
-        const uploadResponse = await fetch('${API_URL}/api/upload-resume', {
+        const uploadResponse = await fetch(`${API_URL}/api/upload-resume`, {
           method: 'POST',
           body: formDataUpload
         })
@@ -96,7 +96,7 @@ function App() {
         resumePath: resumePath
       }
 
-      const response = await fetch('${API_URL}/api/applicants', {
+      const response = await fetch(`${API_URL}/api/applicants`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -178,7 +178,7 @@ function App() {
   const clearAllApplicants = async () => {
     if (window.confirm('Are you sure you want to clear all applicants? This action cannot be undone.')) {
       try {
-        const response = await fetch('${API_URL}/api/clear-all', {
+        const response = await fetch(`${API_URL}/api/clear-all`, {
           method: 'DELETE'
         })
         

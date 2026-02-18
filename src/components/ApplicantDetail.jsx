@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './ApplicantDetail.css'
 
-const API_URL = import.meta.env.VITE_API_URL || '${API_URL}'
+const API_URL = 'https://linkdin-server.onrender.com'
 
 function ApplicantDetail({ applicant }) {
   const [pdfError, setPdfError] = useState(false)
