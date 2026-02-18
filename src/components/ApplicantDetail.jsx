@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './ApplicantDetail.css'
 
 const API_URL = 'https://linkdin-server.onrender.com'
@@ -11,6 +11,11 @@ function ApplicantDetail({ applicant }) {
     note: ''
   })
   const [comments, setComments] = useState(applicant.comments || [])
+
+  // Update comments when applicant changes
+  useEffect(() => {
+    setComments(applicant.comments || [])
+  }, [applicant.id])
 
   const handleLinkedInClick = () => {
     if (applicant.linkedinUrl) {
