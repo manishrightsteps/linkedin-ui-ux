@@ -380,6 +380,28 @@
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
+.submit-comment-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.submit-comment-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.spinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .comments-list {
   display: flex;
   flex-direction: column;

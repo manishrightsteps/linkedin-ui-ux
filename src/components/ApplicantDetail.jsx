@@ -11,6 +11,7 @@ function ApplicantDetail({ applicant }) {
     note: ''
   })
   const [comments, setComments] = useState(applicant.comments || [])
+  const [isSubmittingComment, setIsSubmittingComment] = useState(false)
 
   // Update comments when applicant changes
   useEffect(() => {
@@ -47,6 +48,8 @@ function ApplicantDetail({ applicant }) {
       timestamp: new Date().toLocaleString()
     }
 
+    setIsSubmittingComment(true)
+    
     try {
       const response = await fetch(`${API_URL}/api/applicants/${applicant.id}/comments`, {
         method: 'POST',
@@ -69,6 +72,8 @@ function ApplicantDetail({ applicant }) {
     } catch (error) {
       console.error('Error adding comment:', error)
       alert('Error adding comment')
+    } finally {
+      setIsSubmittingComment(false)
     }
   }
 
@@ -180,8 +185,18 @@ function ApplicantDetail({ applicant }) {
                   />
                 </div>
                 
-                <button type="submit" className="submit-comment-btn">
-                  Add Comment
+                <button 
+                  type="submit" 
+                  className="submit-comment-btn"
+                  disabled={isSubmittingComment}
+                >
+                  {isSubmittingComment ? (
+                    <>
+                      <span className="spinner">⏳</span> Adding Comment...
+                    </>
+                  ) : (
+                    'Add Comment'
+                  )}
                 </button>
               </form>
             </div>
