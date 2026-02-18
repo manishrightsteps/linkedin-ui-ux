@@ -40,25 +40,32 @@ function ApplicantsPage() {
   // Get latest decision per person for each applicant
   const getLatestDecisions = (comments = []) => {
     const latestDecisions = {}
-    
+
+    if (!comments || comments.length === 0) return latestDecisions
+
     // Sort comments by timestamp (latest first)
     const sortedComments = [...comments].sort((a, b) => {
       // Convert timestamp format "18/02/2026, 16:27:29" to proper date
       const parseTimestamp = (timestamp) => {
-        const [datePart, timePart] = timestamp.split(', ')
-        const [day, month, year] = datePart.split('/')
+        if (!timestamp) return new Date(0)
+        const parts = timestamp.split(', ')
+        if (parts.length !== 2) return new Date(0)
+        const [datePart, timePart] = parts
+        const dateParts = datePart.split('/')
+        if (dateParts.length !== 3) return new Date(0)
+        const [day, month, year] = dateParts
         return new Date(`${year}-${month}-${day}T${timePart}`)
       }
-      return parseTimestamp(b.timestamp) - parseTimestamp(a.timestamp)
+      return parseTimestamp(b?.timestamp) - parseTimestamp(a?.timestamp)
     })
-    
+
     // Get latest decision per person
     sortedComments.forEach(comment => {
-      if (!latestDecisions[comment.person]) {
+      if (comment?.person && comment?.decision && !latestDecisions[comment.person]) {
         latestDecisions[comment.person] = comment.decision
       }
     })
-    
+
     return latestDecisions
   }
 
@@ -124,7 +131,7 @@ function ApplicantsPage() {
                   onClick={() => setSelectedApplicant(applicant)}
                 >
                   <div className="applicant-preview">
-                    <h4>{applicant.fullName}</h4>
+                    <h4>{applicant.fullName || 'Unknown'}</h4>
                     <div className="applicant-meta">
                       {applicant.expectedSalary ? (
                         <span className="salary">💰 {applicant.expectedSalary}</span>
@@ -161,7 +168,7 @@ function ApplicantsPage() {
                       onClick={() => setSelectedApplicant(applicant)}
                       style={{ backgroundColor: getRowColor(applicant.comments) }}
                     >
-                      <div className="col-name">{applicant.fullName}</div>
+                      <div className="col-name">{applicant.fullName || 'Unknown'}</div>
                       <div className="col-salary">
                         {applicant.expectedSalary || 'First 14'}
                       </div>

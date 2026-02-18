@@ -184,13 +184,13 @@ function ApplicantDetail({ applicant }) {
             <div className="comments-list">
               {comments.length > 0 ? (
                 comments.map(comment => (
-                  <div key={comment.id} className="comment-item">
+                  <div key={comment.id || Math.random()} className="comment-item">
                     <div className="comment-header">
-                      <div className="comment-person">{comment.person}</div>
-                      <div className={`comment-decision ${comment.decision.toLowerCase().replace(' ', '-')}`}>
-                        {comment.decision}
+                      <div className="comment-person">{comment.person || 'Unknown'}</div>
+                      <div className={`comment-decision ${(comment.decision || '').toLowerCase().replace(' ', '-')}`}>
+                        {comment.decision || 'No Decision'}
                       </div>
-                      <div className="comment-time">{comment.timestamp}</div>
+                      <div className="comment-time">{comment.timestamp || ''}</div>
                     </div>
                     {comment.note && (
                       <div className="comment-note">{comment.note}</div>

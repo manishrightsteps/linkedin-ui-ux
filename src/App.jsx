@@ -157,12 +157,12 @@ function App() {
     const csvContent = [
       headers.join(','),
       ...applicants.map(applicant => [
-        `"${applicant.fullName}"`,
+        `"${applicant.fullName || ''}"`,
         `"${applicant.linkedinUrl || ''}"`,
         `"${applicant.expectedSalary || ''}"`,
         `"${applicant.resumeName || ''}"`,
         `"${applicant.notes || ''}"`,
-        `"${applicant.dateAdded}"`
+        `"${applicant.dateAdded || ''}"`
       ].join(','))
     ].join('\n')
 
@@ -308,7 +308,7 @@ function App() {
               filteredApplicants.map(applicant => (
                 <div key={applicant.id} className="applicant-card">
                   <div className="card-header">
-                    <h3>{applicant.fullName}</h3>
+                    <h3>{applicant.fullName || 'Unknown'}</h3>
                     <div className="card-actions">
                       <button
                         onClick={() => handleDelete(applicant.id)}
