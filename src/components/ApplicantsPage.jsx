@@ -30,11 +30,11 @@ function ApplicantsPage() {
   }
 
   const filteredApplicants = applicants.filter(applicant =>
-    applicant.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+    (applicant.fullName || '').toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const sortedApplicants = filteredApplicants.sort((a, b) =>
-    a.fullName.localeCompare(b.fullName)
+    (a.fullName || '').localeCompare(b.fullName || '')
   )
 
   // Get latest decision per person for each applicant

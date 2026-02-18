@@ -195,7 +195,7 @@ function App() {
   }
 
   const filteredApplicants = applicants.filter(applicant => {
-    const matchesSearch = applicant.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesSearch = (applicant.fullName || '').toLowerCase().includes(searchTerm.toLowerCase())
     return matchesSearch
   })
 
