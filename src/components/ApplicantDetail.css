@@ -453,6 +453,11 @@
   color: #991b1b;
 }
 
+.comment-decision.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
 .comment-time {
   font-size: 0.8rem;
   color: #6b7280;
