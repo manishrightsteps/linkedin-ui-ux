@@ -74,15 +74,20 @@ function ApplicantsPage() {
     const decisions = getLatestDecisions(comments)
     const considering = Object.values(decisions).filter(d => d === 'Considering').length
     const notConsidering = Object.values(decisions).filter(d => d === 'Not Considering').length
+    const pending = Object.values(decisions).filter(d => d === 'Pending').length
     
-    if (considering > notConsidering) {
+    if (considering > notConsidering && considering > pending) {
       // Green intensity based on considering count
       const intensity = Math.min(considering * 0.15, 0.6)
       return `rgba(34, 197, 94, ${intensity})`
-    } else if (notConsidering > considering) {
+    } else if (notConsidering > considering && notConsidering > pending) {
       // Red intensity based on not considering count
       const intensity = Math.min(notConsidering * 0.15, 0.6)
       return `rgba(239, 68, 68, ${intensity})`
+    } else if (pending > considering && pending > notConsidering) {
+      // Yellow intensity based on pending count
+      const intensity = Math.min(pending * 0.15, 0.6)
+      return `rgba(251, 191, 36, ${intensity})`
     }
     
     return 'transparent' // No consensus or equal votes
@@ -175,35 +180,35 @@ function ApplicantsPage() {
                       <div className="col-miz">
                         {decisions.MIZ && (
                           <div className={`decision-badge ${decisions.MIZ.toLowerCase().replace(' ', '-')}`}>
-                            {decisions.MIZ === 'Considering' ? '✓' : '✗'}
+                            {decisions.MIZ === 'Considering' ? '✓' : decisions.MIZ === 'Not Considering' ? '✗' : '?'}
                           </div>
                         )}
                       </div>
                       <div className="col-jeanette">
                         {decisions.JEANETTE && (
                           <div className={`decision-badge ${decisions.JEANETTE.toLowerCase().replace(' ', '-')}`}>
-                            {decisions.JEANETTE === 'Considering' ? '✓' : '✗'}
+                            {decisions.JEANETTE === 'Considering' ? '✓' : decisions.JEANETTE === 'Not Considering' ? '✗' : '?'}
                           </div>
                         )}
                       </div>
                       <div className="col-manish">
                         {decisions.MANISH && (
                           <div className={`decision-badge ${decisions.MANISH.toLowerCase().replace(' ', '-')}`}>
-                            {decisions.MANISH === 'Considering' ? '✓' : '✗'}
+                            {decisions.MANISH === 'Considering' ? '✓' : decisions.MANISH === 'Not Considering' ? '✗' : '?'}
                           </div>
                         )}
                       </div>
                       <div className="col-ayesha">
                         {decisions.AYESHA && (
                           <div className={`decision-badge ${decisions.AYESHA.toLowerCase().replace(' ', '-')}`}>
-                            {decisions.AYESHA === 'Considering' ? '✓' : '✗'}
+                            {decisions.AYESHA === 'Considering' ? '✓' : decisions.AYESHA === 'Not Considering' ? '✗' : '?'}
                           </div>
                         )}
                       </div>
                       <div className="col-nayeda">
                         {decisions.NAYEDA && (
                           <div className={`decision-badge ${decisions.NAYEDA.toLowerCase().replace(' ', '-')}`}>
-                            {decisions.NAYEDA === 'Considering' ? '✓' : '✗'}
+                            {decisions.NAYEDA === 'Considering' ? '✓' : decisions.NAYEDA === 'Not Considering' ? '✗' : '?'}
                           </div>
                         )}
                       </div>

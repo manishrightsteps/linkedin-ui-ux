@@ -171,6 +171,7 @@ function ApplicantDetail({ applicant }) {
                       <option value="">Select Decision</option>
                       <option value="Considering">Considering</option>
                       <option value="Not Considering">Not Considering</option>
+                      <option value="Pending">Pending</option>
                     </select>
                   </div>
                 </div>
